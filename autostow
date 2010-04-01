@@ -5,20 +5,35 @@ use ConfigReader::Simple;
 use Getopt::Long;
 use Pod::Usage;
 
+my $config_file = $ENV{'HOME'} . '/.autostow.cfg';
+print "==> $config_file <==\n";
+my $config = ConfigReader::Simple->new($config_file);
+
+die "Could not read config! $ConfigReader::Simple::ERROR\n"
+  if $ConfigReader::Simple::ERROR;
+
+# print "==> $ConfigReader::Simple::ERROR <==\n";
+
+# print $ERROR;
+
+print "==", $config, "<==\n";
+print "==", ref $config, "<==\n";
+__END__
+
 my $man     = 0;
 my $help    = 0;
 my $verbose = 0;
 
-my $build_template       = 'gnu.tmpl';
+my $build_template   = 'gnu.tmpl';
 my $software_package = 'emacs';
 my $version          = '23.1.1';
 my $result           = GetOptions(
     "template=s" => \$build_template,
-    "package=s"    => \$software_package,
-    "version=s"    => \$version,
-    "verbose"      => \$verbose,
-    'help|?'       => \$help
-    );
+    "package=s"  => \$software_package,
+    "version=s"  => \$version,
+    "verbose"    => \$verbose,
+    'help|?'     => \$help
+);
 
 print "==>$build_template\n";
 
@@ -26,13 +41,7 @@ print "==>$build_template\n";
 pod2usage(1) if $help;
 pod2usage( -exitstatus => 0, -verbose => 2 ) if $man;
 
-my $config_file = $ENV{'HOME'} . '/.stowball.cfg';
-my $config      = ConfigReader::Simple->new($config_file);
-
-die "DEBUG Could not read config! $ConfigReader::Simple::ERROR\n"
-  unless ref $config;
-
-my $template = &read_template( $build_template );
+my $template = &read_template($build_template);
 open( STOWFILE, ">stow-$software_package-$version" ) || die;
 print STOWFILE $template;
 close STOWFILE;
