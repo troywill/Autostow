@@ -11,41 +11,37 @@ my $config =
     Files => [ "$config_file", '/etc/autostow.cfg' ] );
 
 my $template_dir = $config->get( 'template_dir');
-print `ls $template_dir`;
-exit;
 
 my $man     = 0;
 my $help    = 0;
 my $verbose = 0;
 
-my $build_template   = 'gnu.tmpl';
-my $software_package = 'emacs';
-my $version          = '23.1.1';
+my $template;
+my $software_package;
+my $version;
+
 my $result           = GetOptions(
-    "template=s" => \$build_template,
+    "template=s" => \$template,
     "package=s"  => \$software_package,
     "version=s"  => \$version,
     "verbose"    => \$verbose,
     'help|?'     => \$help
 );
 
-print "==>$build_template\n";
+unless ( defined $template && defined $software_package && defined $version ) {
+    &print_available_templates();
+    pod2usage(1);
+}
 
-# GetOptions('help|?' => \$help, man => \$man) or pod2usage(2);
-pod2usage(1) if $help;
-pod2usage( -exitstatus => 0, -verbose => 2 ) if $man;
-
-my $template = &read_template($build_template);
+my $stow_script = &process_template($template);
 open( STOWFILE, ">stow-$software_package-$version" ) || die;
-print STOWFILE $template;
+print STOWFILE $stow_script;
 close STOWFILE;
 
-print `find . -cmin -1`;
-
-sub read_template {
+sub process_template {
     my $template_file = shift;
-    $template_file = $ENV{'HOME'} . "/.autostow/templates/$template_file";
-    print "==>$template_file<==\n";
+#    $template_file = $ENV{'HOME'} . "/.autostow/templates/$template_file";
+    $template_file = "$template_dir/$template_file";
     open( TEMPLATE, "<$template_file" ) || die;
     undef $/;    # 'slurp' mode
     my $whole_file = <TEMPLATE>;
@@ -54,39 +50,26 @@ sub read_template {
     return $whole_file;
 }
 
+sub print_available_templates {
+    print "Templates distributed with Autostow:\n";
+    print "\tgnu.tmpl => GNU build system, DESTDIR=/usr/local, Stow dir=/usr/local|n";
+    print "\tgnu-root.tmpl => GNU build system, DESTDIR=/usr, Stow dir=/stow\n";
+    print "\tcmake-root.tmpl => Cmake build system, DESTDIR=/usr, Stow dir=/stow\n";
+    print "\n";
+}
+
 __END__
 
 =head1 NAME
 
-autostow - Using Getopt::Long and Pod::Usage
+autostow - A program to generate configure, build and stow scripts
 
 =head1 SYNOPSIS
 
-autostow [options] --package=package
+    autostow --package=package --template=template --version=version
 
-  Options:
-              -version         22.3
-              -template        gnu.tmpl, cmake.tmpl
-              -help            brief help message
-              -man             full documentation
+Examples:
 
-=head1 OPTIONS
+    autostow --package=emacs --template=gnu.tmpl --version=22.3
 
-=over 8
-
-=item B<-help>
-
-Print a brief help message and exits.
-
-=item B<-man>
-
-Prints the manual page and exits.
-
-=back
-
-=head1 DESCRIPTION
-
-B<This program> will read the given input file(s) and do something
-useful with the contents thereof.
-
-=cut
+    autostow --package=DBI --template=perl.tmpl --version=1.609
