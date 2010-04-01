@@ -40,8 +40,9 @@ close STOWFILE;
 
 sub process_template {
     my $template_file = shift;
-#    $template_file = $ENV{'HOME'} . "/.autostow/templates/$template_file";
-    $template_file = "$template_dir/$template_file";
+    $template_file = $ENV{'HOME'} . "/.autostow/templates/$template_file";
+#    $template_file = "$template_dir/$template_file";
+    print "==>$template_file<==\n";
     open( TEMPLATE, "<$template_file" ) || die;
     undef $/;    # 'slurp' mode
     my $whole_file = <TEMPLATE>;
@@ -51,11 +52,17 @@ sub process_template {
 }
 
 sub print_available_templates {
-    print "Templates distributed with Autostow:\n";
-    print "\tgnu.tmpl => GNU build system, DESTDIR=/usr/local, Stow dir=/usr/local|n";
-    print "\tgnu-root.tmpl => GNU build system, DESTDIR=/usr, Stow dir=/stow\n";
-    print "\tcmake-root.tmpl => Cmake build system, DESTDIR=/usr, Stow dir=/stow\n";
-    print "\n";
+    print <<END;
+Templates distributed with Autostow:
+    gnu.tmpl        => GNU build system, DESTDIR=/usr/local, Stow dir=/usr/local/stow
+    cmake.tmpl      => Cmake build system, DESTDIR=/usr/local, Stow dir=/usr/local/stow
+    perl.tmpl       => Perl module, DESTDIR=/usr/local, Stow dir=/usr/local/stow
+    --
+    gnu-root.tmpl   => GNU build system, DESTDIR=/usr, Stow dir=/stow
+    cmake-root.tmpl => Cmake build system, DESTDIR=/usr, Stow dir=/stow
+    perl-root.tmpl  => Perl module, DESTDIR=/usr, Stow Dir=/stow
+
+END
 }
 
 __END__
