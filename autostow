@@ -5,20 +5,14 @@ use ConfigReader::Simple;
 use Getopt::Long;
 use Pod::Usage;
 
-my $config_file = $ENV{'HOME'} . '/.autostow.cfg';
-print "==> $config_file <==\n";
-my $config = ConfigReader::Simple->new($config_file);
+my $config_file = $ENV{'HOME'} . '/.autostow/autostow.cfg';
+my $config =
+  ConfigReader::Simple->new_multiple(
+    Files => [ "$config_file", '/etc/autostow.cfg' ] );
 
-die "Could not read config! $ConfigReader::Simple::ERROR\n"
-  if $ConfigReader::Simple::ERROR;
-
-# print "==> $ConfigReader::Simple::ERROR <==\n";
-
-# print $ERROR;
-
-print "==", $config, "<==\n";
-print "==", ref $config, "<==\n";
-__END__
+my $template_dir = $config->get( 'template_dir');
+print `ls $template_dir`;
+exit;
 
 my $man     = 0;
 my $help    = 0;
