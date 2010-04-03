@@ -8,6 +8,8 @@ VERSION=DO_NOT_EDIT
 # PACKAGER="JS <Jane_Smith@fsf.org>"
 HOMEPAGE_URL=""
 SOURCE_URL=""
+STOWBALL_URL=""
+STOWBALL_MD5SUM=""
 DATE="2010-04-03"
 PREFIX="/usr"
 TARGET="/"
@@ -45,10 +47,12 @@ do_poststow () {
 }
 
 do_package () {
-    cd /tmp
-    ${SUDO} tar -jcf ${PACKAGE_DIR}.stow.tar.bz2 ${STOW_DIR}${PACKAGE_DIR}
+    TARBALL="${PACKAGE_DIR}.stow.tar.bz2"
+    cd ${STOW_DIR}
+    ${SUDO} tar -jcvf ${TARBALL} ${PACKAGE_DIR}
+    ${SUDO} mv --verbose ${TARBALL} /tmp
+    md5sum /tmp/${TARBALL}
 }
-
 
 do_configure
 do_build
@@ -56,4 +60,5 @@ do_install
 do_clean_texinfo
 do_stow
 do_poststow
-# do_package
+do_package
+exit
