@@ -17,7 +17,10 @@ SUDO="sudo"
 PACKAGE_DIR=${PACKAGE}-${VERSION}
 
 do_configure () {
-    ./configure --prefix=${PREFIX} 2>&1 | tee log.stow.configure
+    ./configure --prefix=${PREFIX} \
+	--info-dir=${PREFIX}/share/info \
+	--man-dir=${PREFIX}/share/man \
+	2>&1 | tee log.stow.configure
 }
 
 do_build () {
@@ -54,11 +57,11 @@ do_package () {
     md5sum /tmp/${TARBALL}
 }
 
-# do_configure
-# do_build
-# do_install
-# do_clean_texinfo
-# do_stow
-# do_poststow
-# do_package
-# exit
+do_configure
+do_build
+do_install
+do_clean_texinfo
+do_stow
+do_update_info_dir
+do_package
+exit
