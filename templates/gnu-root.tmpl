@@ -40,8 +40,10 @@ do_stow () {
     ${SUDO} stow -v --target=${TARGET} --dir=${STOW_DIR} ${PACKAGE_DIR} 2>&1 | tee log.stow.stow
 }
 
-do_poststow () {
-    echo "run makeinfo"
+do_update_info_dir () {
+    INFO_FILE="${PREFIX}/info/${PACKAGE}.info"
+    DIR_FILE="${PREFIX}/info/dir"
+    echo "install-info $INFO_FILE $DIR_FILE"
 }
 
 do_package () {
@@ -52,11 +54,11 @@ do_package () {
     md5sum /tmp/${TARBALL}
 }
 
-do_configure
-do_build
-do_install
-do_clean_texinfo
-do_stow
-do_poststow
-do_package
-exit
+# do_configure
+# do_build
+# do_install
+# do_clean_texinfo
+# do_stow
+# do_poststow
+# do_package
+# exit
