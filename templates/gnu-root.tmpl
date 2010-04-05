@@ -1,6 +1,6 @@
 #!/bin/bash
 set -o errexit
-# autostow template 2010-04-03
+# autostow template 2010-04-04
 # GNU DESTDIR type
 # stow target = /, stow dir = /stow
 PACKAGE=DO_NOT_EDIT
@@ -40,7 +40,7 @@ do_check_conflicts () {
 }
 
 do_stow () {
-    ${SUDO} stow -v --target=${TARGET} --dir=${STOW_DIR} ${PACKAGE_DIR} 2>&1 | tee log.stow.stow
+    ${SUDO} stow --target=${TARGET} --dir=${STOW_DIR} ${PACKAGE_DIR} 2>&1 | tee log.stow.stow
 }
 
 do_update_info_dir () {
@@ -52,7 +52,7 @@ do_update_info_dir () {
 do_package () {
     TARBALL="${PACKAGE_DIR}.stow.tar.bz2"
     cd ${STOW_DIR}
-    ${SUDO} tar -jcvf ${TARBALL} ${PACKAGE_DIR}
+    ${SUDO} tar -jcf ${TARBALL} ${PACKAGE_DIR}
     ${SUDO} mv --verbose ${TARBALL} /tmp
     md5sum /tmp/${TARBALL}
 }
