@@ -5,6 +5,7 @@ VERSION=DO_NOT_EDIT
 PACKAGER="TDW <troydwill@gmail.com>"
 # PACKAGER="JS <Jane_Smith@fsf.org>"
 DATE="2010-04-05"
+SOURCE_URL=""
 PREFIX="/usr"
 TARGET="/"
 STOW_DIR="/stow"
@@ -34,8 +35,9 @@ do_poststow () {
 }
 
 do_package () {
-    cd /tmp
-    ${SUDO} tar -jcf ${PACKAGE_DIR}.stow.tar.bz2 ${STOW_DIR}${PACKAGE_DIR}
+    cd $STOW_DIR
+    ${SUDO} tar -jcf ${PACKAGE_DIR}.stow.tar.bz2 ${PACKAGE_DIR}
+    ${SUDO} mv --verbose ${PACKAGE_DIR}.stow.tar.bz2 /tmp
 }
 
 do_configure
@@ -43,4 +45,4 @@ do_build
 do_install
 do_stow
 do_poststow
-# do_package
+do_package
