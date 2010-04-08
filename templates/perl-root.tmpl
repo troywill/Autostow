@@ -4,7 +4,12 @@ PACKAGE=DO_NOT_EDIT
 VERSION=DO_NOT_EDIT
 PACKAGER="TDW <troydwill@gmail.com>"
 # PACKAGER="JS <Jane_Smith@fsf.org>"
+<<<<<<< HEAD
 DATE="2010-04-08"
+=======
+DATE="2010-04-05"
+SOURCE_URL=""
+>>>>>>> 5038df73357e1334dc199e535aea0eac965fa75a
 PREFIX="/usr"
 TARGET="/"
 STOW_DIR="/stow"
@@ -38,10 +43,16 @@ do_poststow () {
 }
 
 do_package () {
+<<<<<<< HEAD
     TARBALL="${PACKAGE_DIR}.stow.tar.bz2"
     cd ${STOW_DIR}
     ${SUDO} tar -jcf ${TARBALL} ${PACKAGE_DIR}
     ${SUDO} mv --verbose ${TARBALL} /tmp
+=======
+    cd $STOW_DIR
+    ${SUDO} tar -jcf ${PACKAGE_DIR}.stow.tar.bz2 ${PACKAGE_DIR}
+    ${SUDO} mv --verbose ${PACKAGE_DIR}.stow.tar.bz2 /tmp
+>>>>>>> 5038df73357e1334dc199e535aea0eac965fa75a
 }
 
 do_configure
