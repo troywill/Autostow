@@ -1,15 +1,13 @@
 #!/bin/bash
 set -o errexit
-set -o errexit
+RUBY_VERSION=$1
 # autostow template 2010-04-06
-# GNU DESTDIR type
 # stow target = /, stow dir = /stow
 STOW="stow2"
 PACKAGE=DO_NOT_EDIT
 VERSION=DO_NOT_EDIT
 GEM_NAME=${PACKAGE}
 GEM_VERSION=${VERSION}
-# PACKAGER="JS <Jane_Smith@fsf.org>"
 PACKAGER="TDW <troydwill@gmail.com>"
 HOMEPAGE_URL=""
 SOURCE_URL=""
@@ -19,7 +17,6 @@ TARGET="/"
 STOW_DIR="/stow"
 SUDO="sudo"
 
-RUBY_VERSION=`ruby -e 'print RUBY_VERSION'`
 PACKAGE="${GEM_NAME}_${GEM_VERSION}_${RUBY_VERSION}"
 PACKAGE_DIR="${STOW_DIR}/${PACKAGE}"
 
