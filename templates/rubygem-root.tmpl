@@ -4,6 +4,7 @@ set -o errexit
 # autostow template 2010-04-06
 # GNU DESTDIR type
 # stow target = /, stow dir = /stow
+STOW="stow2"
 PACKAGE=DO_NOT_EDIT
 GEM_NAME=${PACKAGE}
 VERSION=DO_NOT_EDIT
@@ -25,8 +26,7 @@ PACKAGE_DIR="${STOW_DIR}/${PACKAGE}"
 
 GEM="GEM_NAME-GEM_VERSION"
 
-do_install () 
-{
+do_install () {
     ${SUDO} gem install \
 	--verbose \
 	--install-dir ${PACKAGE_DIR}${PREFIX}/lib/ruby/gems/${RUBY_VERSION} \
@@ -36,6 +36,10 @@ do_install ()
 	--ignore-dependencies \
 	${GEM_NAME} \
         make 2>&1 | tee log.stow.install
+}
+
+do_stow () {
+    ${SUDO} ${STOW} ${PACKAGE}
 }
 
 do_install
