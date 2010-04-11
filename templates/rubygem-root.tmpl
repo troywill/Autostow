@@ -21,7 +21,7 @@ TARGET="/"
 STOW_DIR="/stow"
 SUDO="sudo"
 
-PACKAGE="${GEM_NAME}_${GEM_VERSION}_${RUBY_VERSION}"
+PACKAGE="${GEM_NAME}_${GEM_VERSION}_rb${RUBY_VERSION}"
 PACKAGE_DIR="${STOW_DIR}/${PACKAGE}"
 
 GEM="GEM_NAME-GEM_VERSION"
@@ -46,6 +46,11 @@ do_stow () {
 
 do_check_stow () {
     ${STOW} --conflicts ${PACKAGE}
+}
+
+do_find () {
+    find ${STOW_DIR} -cmin -2 > find.2.${STOW_DIR}
+    find ${PREFIX} -cmin -2 > find.2.${PREFIX}
 }
 
 do_package () {
