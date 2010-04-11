@@ -51,7 +51,7 @@ sub process_template {
 }
 
 sub display_ruby_info {
-    
+    print `ruby -e 'puts RUBY_VERSION, RUBY_RELEASE_DATE, $LOAD_PATH'`;
 }
 
 sub print_available_templates {

@@ -1,6 +1,10 @@
 #!/bin/bash
 set -o errexit
 RUBY_VERSION=$1
+if [ -z "$1" ]; then
+    echo "Please provide a Ruby version, e.g. 1.9.1"
+    exit
+fi
 # autostow template 2010-04-06
 # stow target = /, stow dir = /stow
 STOW="stow2"
@@ -22,11 +26,13 @@ PACKAGE_DIR="${STOW_DIR}/${PACKAGE}"
 
 GEM="GEM_NAME-GEM_VERSION"
 
+INSTALL_DIR="${PACKAGE_DIR}${PREFIX}/lib/ruby/gems/${RUBY_VERSION}"
+
 do_install () {
     ${SUDO} gem install ${GEM_NAME} \
 	--verbose \
-	--install-dir ${PACKAGE_DIR}${PREFIX}/lib/ruby/gems/${RUBY_VERSION} \
 	--bindir ${PACKAGE_DIR}/${PREFIX}/bin \
+        --install-dir ${INSTALL_DIR} \
 	--no-rdoc \
 	--no-ri \
 	--ignore-dependencies \
@@ -38,10 +44,15 @@ do_stow () {
     ${SUDO} ${STOW} ${PACKAGE}
 }
 
+do_check_stow () {
+    ${STOW} --conflicts ${PACKAGE}
+}
+
 do_package () {
     echo "PLACEHOLDER"
 }
 
 do_install
 do_stow
+do_check_stow
 do_package
