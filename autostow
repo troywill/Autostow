@@ -34,7 +34,7 @@ unless ( defined $template && defined $software_package && defined $version ) {
 }
 
 my $stow_script = &process_template($template);
-open( STOWFILE, ">stow-$software_package-$version" ) || die;
+open( STOWFILE, ">>stow-$software_package-$version" ) || die;
 print STOWFILE $stow_script;
 close STOWFILE;
 
