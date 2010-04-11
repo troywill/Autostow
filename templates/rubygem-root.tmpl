@@ -1,5 +1,6 @@
 #!/bin/bash
 set -o errexit
+# Autostow template April 10, 2010
 RUBY_VERSION="EDIT_ME"
 if [ "${RUBY_VERSION}" == "EDIT_ME ]; then
     echo "Please edit the RUBY_VERSION variable, e.g. 1.9.1"
@@ -49,8 +50,8 @@ do_check_stow () {
 }
 
 do_find () {
-    find ${STOW_DIR} -cmin -2 > find.2.${STOW_DIR}
-    find ${PREFIX} -cmin -2 > find.2.${PREFIX}
+    find ${STOW_DIR} -cmin -2 > find.2.STOW_DIR
+    find ${PREFIX} -cmin -2 > find.2.PREFIX
 }
 
 do_package () {
