@@ -64,6 +64,7 @@ Templates distributed with Autostow:
     gnu-root.tmpl   => GNU build system, DESTDIR=/usr, Stow dir=/stow
     cmake-root.tmpl => Cmake build system, DESTDIR=/usr, Stow dir=/stow
     perl-root.tmpl  => Perl module, DESTDIR=/usr, Stow Dir=/stow
+    perl-root-builder  => Perl module, DESTDIR=/usr, Stow Dir=/stow
     rubygem-root.tmpl  => Ruby Gems, DESTDIR=/usr, Stow Dir=/stow
 
 END
