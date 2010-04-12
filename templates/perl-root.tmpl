@@ -4,7 +4,7 @@ PACKAGE=DO_NOT_EDIT
 VERSION=DO_NOT_EDIT
 PACKAGER="TDW <troydwill@gmail.com>"
 # PACKAGER="JS <Jane_Smith@fsf.org>"
-DATE="2010-04-08"
+DATE="2010-04-12"
 HOMEPAGE_URL=""
 SOURCE_URL=""
 PREFIX="/usr"
@@ -40,10 +40,6 @@ do_stow () {
     ${SUDO} stow -v --target=${TARGET} --dir=${STOW_DIR} ${PACKAGE_DIR} 2>&1 | tee log.stow.stow.${PACKAGE}-${VERSION}
 }
 
-do_poststow () {
-    echo "run makeinfo"
-}
-
 do_package () {
     TARBALL="${PACKAGE_DIR}.stow.tar.bz2"
     cd ${STOW_DIR}
@@ -56,5 +52,4 @@ do_build && continue_prompt
 do_test && continue_prompt
 do_install && continue_prompt
 do_stow && continue_prompt
-do_poststow && continue_prompt
 do_package && continue_prompt
