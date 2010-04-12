@@ -20,7 +20,7 @@ continue_prompt () {
 }
 
 do_configure () {
-    perl ./Builder.PL PREFIX=${PREFIX} 2>&1 | tee log.stow.configure.${PACKAGE}-${VERSION}
+    perl ./Build.PL PREFIX=${PREFIX} 2>&1 | tee log.stow.configure.${PACKAGE}-${VERSION}
 }
 
 do_build () {
