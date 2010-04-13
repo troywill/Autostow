@@ -60,12 +60,12 @@ Templates distributed with Autostow:
     gnu.tmpl        => GNU build system, DESTDIR=/usr/local, Stow dir=/usr/local/stow
     cmake.tmpl      => Cmake build system, DESTDIR=/usr/local, Stow dir=/usr/local/stow
     perl.tmpl       => Perl module, DESTDIR=/usr/local, Stow dir=/usr/local/stow
-    --
-    gnu-root.tmpl   => GNU build system, DESTDIR=/usr, Stow dir=/stow
-    cmake-root.tmpl => Cmake build system, DESTDIR=/usr, Stow dir=/stow
-    perl-root.tmpl  => Perl module, DESTDIR=/usr, Stow Dir=/stow
-    perl-root-builder  => Perl module, DESTDIR=/usr, Stow Dir=/stow
-    rubygem-root.tmpl  => Ruby Gems, DESTDIR=/usr, Stow Dir=/stow
+
+    gnu-usr          => DESTDIR=/usr, stow dir=/stow, GNU build
+    cmake-usr        => DESTDIR=/usr, stow dir=/stow, Cmake build
+    perl-usr         => DESTDIR=/usr, stow dir=/stow, Perl MakeMaker build
+    perl-builder-usr => DESTDIR=/usr, stow dir=/stow, Perl Builder build
+    rubygem-usr      => DESTDIR=/usr, stow dir=/stow, Ruby Gem install
 
 END
 }
