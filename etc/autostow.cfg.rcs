@@ -1,1 +1,2 @@
-template_dir = '~/.autostow/templates'
+template_dir = '/var/lib/autostow/templates'
+
