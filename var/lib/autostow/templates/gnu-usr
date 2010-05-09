@@ -1,6 +1,6 @@
 #!/bin/bash
 set -o errexit
-# autostow template 2010-04-06
+# autostow template 2010-05-09
 # GNU DESTDIR type
 # stow target = /, stow dir = /stow
 PACKAGE=DO_NOT_EDIT
@@ -9,7 +9,7 @@ VERSION=DO_NOT_EDIT
 PACKAGER="TDW <troydwill@gmail.com>"
 HOMEPAGE_URL=""
 SOURCE_URL=""
-DATE="2010-05-07"
+DATE="2010-05-09"
 PREFIX="/usr"
 TARGET="/"
 STOW_DIR="/stow"
@@ -19,9 +19,11 @@ PACKAGE_DIR=${PACKAGE}-${VERSION}
 
 do_configure () {
     ./configure --prefix=${PREFIX} \
-	--info-dir=${PREFIX}/share/info \
-	--man-dir=${PREFIX}/share/man \
 	2>&1 | tee log.stow.configure
+
+    # --info-dir=${PREFIX}/share/info
+    # --man-dir=${PREFIX}/share/man
+	    
 }
 
 do_build () {
@@ -59,10 +61,10 @@ do_package () {
 }
 
 do_configure
+exit
 do_build
 do_install
 do_clean_texinfo
 do_stow
 do_update_info_dir
 do_package
-exit
