@@ -4,12 +4,13 @@ PACKAGE=DO_NOT_EDIT
 VERSION=DO_NOT_EDIT
 PACKAGER="TDW <troydwill@gmail.com>"
 # PACKAGER="JS <Jane_Smith@fsf.org>"
-DATE="2010-04-12"
+DATE="2010-05-30"
 HOMEPAGE_URL=""
 SOURCE_URL=""
 PREFIX="/usr"
 TARGET="/"
 STOW_DIR="/stow"
+INSTALL_BASE="/usr"
 SUDO="sudo"
 
 PACKAGE_DIR=${PACKAGE}-${VERSION}
@@ -20,7 +21,9 @@ continue_prompt () {
 }
 
 do_configure () {
-    perl Makefile.PL PREFIX=${PREFIX} 2>&1 | tee log.stow.configure.${PACKAGE}-${VERSION}
+    perl Makefile.PL \
+	INSTALL_BASE="${INSTALL_BASE}" \
+	2>&1 | tee log.stow.configure.${PACKAGE}-${VERSION}
 }
 
 do_build () {
@@ -36,7 +39,8 @@ do_install () {
 }
 
 do_stow () {
-    ${SUDO} find ${STOW_DIR}/${PACKAGE_DIR} -name 'perllocal.pod' -okdir mv -v '{}' perllocal.pod.stow.${PACKAGE}-${VERSION} ';'
+#    ${SUDO} find ${STOW_DIR}/${PACKAGE_DIR} -name 'perllocal.pod' -okdir mv -v '{}' perllocal.pod.stow.${PACKAGE}-${VERSION} ';'
+    ${SUDO} find ${STOW_DIR}/${PACKAGE_DIR} -name 'perllocal.pod' -okdir rm -i '{}' perllocal.pod.stow.${PACKAGE}-${VERSION} ';'
     ${SUDO} stow -v --target=${TARGET} --dir=${STOW_DIR} ${PACKAGE_DIR} 2>&1 | tee log.stow.stow.${PACKAGE}-${VERSION}
 }
 
