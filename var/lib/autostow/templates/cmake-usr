@@ -4,7 +4,7 @@ set -o errexit
 PACKAGE=DO_NOT_EDIT
 VERSION=DO_NOT_EDIT
 PACKAGER="TDW <troydwill@gmail.com>"
-DATE="2010-05-07"
+DATE="2010-05-30"
 PREFIX="/usr"
 TARGET="/"
 STOW_DIR="/stow"
