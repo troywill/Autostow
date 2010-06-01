@@ -4,11 +4,11 @@ PACKAGE=DO_NOT_EDIT
 VERSION=DO_NOT_EDIT
 PACKAGER="TDW <troydwill@gmail.com>"
 # PACKAGER="JS <Jane_Smith@fsf.org>"
-DATE="2010-05-30"
+DATE="2010-06-31"
 HOMEPAGE_URL=""
 SOURCE_URL=""
 PREFIX="/usr"
-LIB="{PREFIX}/usr/lib/perl5/vendor_perl"
+# LIB="{PREFIX}/usr/lib/perl5/vendor_perl"
 TARGET="/"
 STOW_DIR="/stow"
 INSTALL_BASE="/usr"
@@ -23,7 +23,6 @@ continue_prompt () {
 
 do_configure () {
     perl Makefile.PL \
-	INSTALL_BASE="${INSTALL_BASE}" \
 	2>&1 | tee log.stow.configure.${PACKAGE}-${VERSION}
 }
 
