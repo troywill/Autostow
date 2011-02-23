@@ -13,7 +13,7 @@ SUDO="sudo"
 PACKAGE_DIR=${PACKAGE}-${VERSION}
 
 do_configure () {
-    cmake . -DCMAKE_INSTALL_PREFIX:PATH=${PREFIX} 2>&1 | tee log.stow.configure
+    cmake . -DCMAKE_INSTALL_PREFIX=${PREFIX} 2>&1 | tee log.stow.configure
 }
 
 do_build () {
